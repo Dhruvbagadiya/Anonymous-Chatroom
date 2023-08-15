@@ -40,9 +40,7 @@ An Anonymous Chatroom application that allows users to join chatrooms and engage
 
 Contributions are welcome! Please fork the repository and create a pull request with your suggested changes.
 
-## License
 
-This project is licensed under the [MIT License](/LICENSE).
 
 ## Contact
 
