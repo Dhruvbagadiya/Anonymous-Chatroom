@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Chat</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="chat-container">
+    <h1>     <%= chatroomName  %>    </h1>
+    <div id="messages">
+      <!-- Messages -->
+    </div>
+    <form id="message-form">
+      <input type="text" id="message-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <div id="context-menu" style="display: none;">
+    <ul>
+      <li id="user-info-option">View User Info</li>
+      <li id="block-option">Block User</li>
+    </ul>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    
+    const messagesContainer = document.getElementById('messages');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+
+  //  const chatroomName = localStorage.getItem("chatroomName")
+
+    // Function to display a new message
+    // function displayMessage(message, isSent) {
+    //   const messageElement = document.createElement('div');
+    //   messageElement.classList.add(isSent ? 'sent-message' : 'received-message');
+    //   messageElement.textContent = message;
+      
+    //   messagesContainer.appendChild(messageElement);
+    // }
+
+    // // Handle form submission to send messages
+    // messageForm.addEventListener('submit', (event) => {
+    //   event.preventDefault();
+
+    //   const message = messageInput.value.trim();
+    //   if (message) {
+    //     socket.emit('message', message);
+    //     messageInput.value = '';
+    //   }
+    // });
+
+    // // Receive messages from the server and display them
+    // socket.on('message', (data) => {
+    //   displayMessage(data,false);
+    // });
+
+    function displayMessage(message, isSent) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add(isSent ? 'sent-message' : 'received-message');
+        messageElement.textContent = message;
+        messagesContainer.appendChild(messageElement);
+}
+
+// Handle form submission to send messages
+messageForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const message = messageInput.value.trim();
+  if (message) {
+        socket.emit('message', { message, sender: socket.id }); // Include sender information
+        displayMessage(message, true);
+        messageInput.value = '';
+      }
+    });
+
+// Receive messages from the server and display them
+socket.on('message', (data) => {
+      if (data.sender !== socket.id) {
+        displayMessage(data.message, false);
+      }
+    });
+
+  </script>
+</body>
+</html>

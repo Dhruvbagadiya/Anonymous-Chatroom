@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Members to Chatroom</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Add Members to Chatroom</h1>
+    <form id="add-members-form">
+      <div class="form-group">
+        <label for="chatroomId">Chatroom ID:</label>
+        <input type="text" id="chatroomId" name="chatroomId" required>
+      </div>
+      <div class="form-group">
+        <label for="usernames">Usernames (comma-separated):</label>
+        <input type="text" id="usernames" name="usernames" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">Add Members</button>
+      </div>
+    </form>
+  </div>
+  <script src="/add-members.js"></script>
+</body>
+</html>
